@@ -21,7 +21,16 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#define UP GPIO_PIN_0
+#define DOWN GPIO_PIN_1
 
+#define digit1 GPIO_PIN_7
+#define digit2 GPIO_PIN_8
+#define digit3 GPIO_PIN_9
+#define digit4 GPIO_PIN_10
+#include <stdint.h>
+uint16_t LEDS[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
+int Count=0;
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
