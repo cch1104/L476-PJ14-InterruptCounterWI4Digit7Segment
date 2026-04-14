@@ -44,7 +44,7 @@ uint16_t LEDS[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-int Count=5678;
+int Count=0;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(GPIO_Pin == UP){
 		Count++;
