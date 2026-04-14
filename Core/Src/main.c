@@ -30,7 +30,6 @@
 #define digit4 GPIO_PIN_10
 #include <stdint.h>
 uint16_t LEDS[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
-int Count=0;
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,6 +44,16 @@ int Count=0;
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+int Count=5678;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if(GPIO_Pin == UP){
+		Count++;
+		if(Count >999)Count =0;
+	}else if(GPIO_Pin == DOWN){
+		Count--;
+		if(Count <0)Count= 0;
+	}
+}
 
 /* USER CODE END PM */
 
@@ -101,8 +110,39 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int MSD, MID1, MID2, LSD, m, n;
+  HAL_GPIO_WritePin(GPIOC, digit1, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, digit2, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, digit3, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, digit4, GPIO_PIN_RESET);
   while (1)
   {
+	  MSD=Count/1000;                                       //Get MSD
+	  m=Count % 1000;
+	  MID2= m/100;                                          //Get MID2
+	  n=m%100;
+	  MID1=n/10;                                            //Get MID1
+	  LSD=n %10;                                            //Get LSD
+
+	  GPIOC -> ODR = LEDS[MSD];
+	  HAL_GPIO_WritePin(GPIOC, digit1,GPIO_PIN_SET);
+	  HAL_Delay(5);
+	  HAL_GPIO_WritePin(GPIOC, digit1, GPIO_PIN_RESET);
+
+	  GPIOC -> ODR = LEDS[MID2];
+	  HAL_GPIO_WritePin(GPIOC, digit2,GPIO_PIN_SET);
+	  HAL_Delay(5);
+	  HAL_GPIO_WritePin(GPIOC, digit2, GPIO_PIN_RESET);
+
+	  GPIOC -> ODR = LEDS[MID1];
+	  HAL_GPIO_WritePin(GPIOC, digit3,GPIO_PIN_SET);
+	  HAL_Delay(5);
+	  HAL_GPIO_WritePin(GPIOC, digit3, GPIO_PIN_RESET);
+
+	  GPIOC -> ODR = LEDS[LSD];
+	  HAL_GPIO_WritePin(GPIOC, digit4,GPIO_PIN_SET);
+	  HAL_Delay(5);
+	  HAL_GPIO_WritePin(GPIOC, digit4, GPIO_PIN_RESET);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
