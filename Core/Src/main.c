@@ -44,11 +44,11 @@ uint16_t LEDS[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-int Count=0;
+int Count=9970;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(GPIO_Pin == UP){
 		Count++;
-		if(Count >999)Count =0;
+		if(Count >9999)Count =0;
 	}else if(GPIO_Pin == DOWN){
 		Count--;
 		if(Count <0)Count= 0;
@@ -110,6 +110,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   int MSD, MID1, MID2, LSD, m, n;
   HAL_GPIO_WritePin(GPIOC, digit1, GPIO_PIN_RESET);
   HAL_GPIO_WritePin(GPIOC, digit2, GPIO_PIN_RESET);
